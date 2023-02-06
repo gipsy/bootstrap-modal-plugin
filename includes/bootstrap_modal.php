@@ -11,22 +11,19 @@
  *
  */
 function bootstrap_modal_add_to_page(){
-  // only add the modal to pages that are not front_page or home
-  if( ! is_front_page() || ! is_home() ){
-    // gets the data for modal - title & content
-    $data = bootstrap_modal_get();
-    // generate markup for the modal
-    $markup = bootstrap_modal_generate( $data );
-    // for extendability the option is there to return or echo modal
-    // we tell it to echo in the render function here
-    $options['echo'] = true;
-    $result = false;
-    // render the markup to the page. returns true if the modal was rendered
-    $result = bootstrap_modal_render($markup, $options);
-    // if the markup was rendered add trigger script immediately after
-    if($result){
-      bootstrap_modal_triggers();
-    }
+  // gets the data for modal - title & content
+  $data = bootstrap_modal_get();
+  // generate markup for the modal
+  $markup = bootstrap_modal_generate( $data );
+  // for extendability the option is there to return or echo modal
+  // we tell it to echo in the render function here
+  $options['echo'] = true;
+  $result = false;
+  // render the markup to the page. returns true if the modal was rendered
+  $result = bootstrap_modal_render($markup, $options);
+  // if the markup was rendered add trigger script immediately after
+  if($result){
+    bootstrap_modal_triggers();
   }
 }
 // hook the main function to wp_footer
@@ -91,17 +88,13 @@ function bootstrap_modal_generate( $options = array() ){
           <?php if( $options['title'] ) { ?>
             <h5 class="modal-title" id="bsModalPluginLabel"><?php echo esc_html( $options['title'] ); ?></h5>
           <?php } ?>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <!--?php echo $options['content']; ?-->
+          <!--#TODO this stuff should be dynamic!-->
           <?php echo do_shortcode( '[contact-form-7 id="19" title=""]' ) ?>
         </div>
-<!--        <div class="modal-footer">-->
-<!--          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--        </div>-->
       </div>
     </div>
   </div>
